@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.abadzheva.tasks.databinding.FragmentTasksBinding
 
 class TasksFragment : Fragment() {
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentTasksBinding? = null
     private val binding get() = _binding!!
 
