@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class TaskViewModel(
+class TasksViewModel(
     val dao: TaskDao,
 ) : ViewModel() {
     var newTaskName = ""

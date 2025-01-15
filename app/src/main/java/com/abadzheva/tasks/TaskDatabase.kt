@@ -10,6 +10,7 @@ abstract class TaskDatabase : RoomDatabase() {
     abstract val taskDao: TaskDao
 
     companion object {
+        @Suppress("ktlint:standard:property-naming")
         @Volatile
         private var INSTANCE: TaskDatabase? = null
 
