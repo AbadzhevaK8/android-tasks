@@ -1,4 +1,4 @@
-package com.abadzheva.tasks.view
+package com.abadzheva.tasks.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
