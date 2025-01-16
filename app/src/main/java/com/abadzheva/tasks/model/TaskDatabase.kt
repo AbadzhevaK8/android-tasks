@@ -1,4 +1,4 @@
-package com.abadzheva.tasks
+package com.abadzheva.tasks.model
 
 import android.content.Context
 import androidx.room.Database

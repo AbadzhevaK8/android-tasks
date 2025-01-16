@@ -1,4 +1,4 @@
-package com.abadzheva.tasks
+package com.abadzheva.tasks.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

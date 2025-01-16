@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".TasksFragment">
+    tools:context=".view.TasksFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.abadzheva.tasks.TasksViewModel" />
+            type="com.abadzheva.tasks.viewmodel.TasksViewModel" />
     </data>
 
     <LinearLayout
@@ -32,11 +32,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/save_task"
-            android:onClick="@{() -> viewModel.addTask()}"/>
+            android:onClick="@{ () -> viewModel.addTask() }"/>
 
         <TextView
             android:id="@+id/tasks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="@{viewModel.tasksString}"/>
     </LinearLayout>
 </layout>

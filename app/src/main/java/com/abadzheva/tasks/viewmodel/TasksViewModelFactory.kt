@@ -1,7 +1,8 @@
-package com.abadzheva.tasks
+package com.abadzheva.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.abadzheva.tasks.model.TaskDao
 
 @Suppress("UNCHECKED_CAST")
 class TasksViewModelFactory(

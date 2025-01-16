@@ -1,4 +1,4 @@
-package com.abadzheva.tasks
+package com.abadzheva.tasks.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.abadzheva.tasks.databinding.FragmentTasksBinding
+import com.abadzheva.tasks.model.TaskDatabase
+import com.abadzheva.tasks.viewmodel.TasksViewModel
+import com.abadzheva.tasks.viewmodel.TasksViewModelFactory
 
 class TasksFragment : Fragment() {
     @Suppress("ktlint:standard:backing-property-naming")
@@ -22,7 +25,7 @@ class TasksFragment : Fragment() {
         val view = binding.root
 
         val application = requireNotNull(this.activity).application
-        val dao = TaskDatabase.getInstance(application).taskDao
+        val dao = TaskDatabase.Companion.getInstance(application).taskDao
         val viewModelFactory = TasksViewModelFactory(dao)
         val viewModel =
             ViewModelProvider(
@@ -31,6 +34,7 @@ class TasksFragment : Fragment() {
             )[TasksViewModel::class.java]
 
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return view
     }
