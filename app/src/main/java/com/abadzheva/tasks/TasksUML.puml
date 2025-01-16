@@ -1,0 +1,72 @@
+@startuml
+package "tasks.model" {
+    class Task {
+        +taskId: Long
+        +taskName: String
+        +taskDone: Boolean
+    }
+
+    interface TaskDao {
+        +suspend insert(task: Task): void
+        +suspend update(task: Task): void
+        +suspend delete(task: Task): void
+        +get(taskId: Long): LiveData<Task>
+        +getAll(): LiveData<List<Task>>
+    }
+
+    abstract class TaskDatabase {
+        TaskDatabase : <<RoomDatabase>>
+        +taskDao: TaskDao
+        +getInstance(context: Context): TaskDatabase
+    }
+
+    TaskDao --> Task : "Использует"
+    TaskDatabase --> TaskDao : "Содержит"
+    TaskDatabase --> Task : "Объявляет как сущность"
+}
+
+package "tasks.presentation" {
+    class MainActivity {
+        MainActivity : <<Activity>>
+        +onCreate(savedInstanceState: Bundle): void
+    }
+
+
+    class TasksFragment {
+        TasksFragment : <<Fragment>>
+        +onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+        +onDestroyView(): void
+    }
+
+}
+
+package "tasks.viewmodel" {
+    class TasksViewModel {
+        TasksViewModel : <<ViewModel>>
+        +newTaskName: String
+        -tasks: LiveData<List<Task>>
+        +tasksString: LiveData<String>
+        +addTask(): void
+        -formatTasks(tasks: List<Task>): String
+        -formatTask(task: Task): String
+    }
+
+
+    class TasksViewModelFactory {
+        TasksViewModelFactory : <<ViewModelProvider.Factory>>
+        +create(modelClass: Class<T>): T
+    }
+
+}
+
+' Связи между компонентами
+TasksFragment --> TasksViewModelFactory : "Создает"
+TasksFragment --> TasksViewModel : "Создает"
+TasksViewModelFactory --> TaskDao : "Использует"
+
+TasksViewModel --> TaskDao : "Использует"
+TasksViewModel --> Task : "Использует"
+TasksFragment --> TaskDatabase : "Доступ к taskDao"
+MainActivity --> TasksFragment : "Навигация"
+}
+@enduml
