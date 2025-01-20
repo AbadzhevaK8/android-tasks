@@ -31,13 +31,27 @@ package "tasks.presentation" {
         +onCreate(savedInstanceState: Bundle): void
     }
 
-
     class TasksFragment {
         TasksFragment : <<Fragment>>
         +onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
         +onDestroyView(): void
     }
 
+    class TaskItemAdapter {
+        +data: List<Task>
+        +getItemCount(): Int
+        +onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder
+        +onBindViewHolder(holder: TaskItemViewHolder, position: Int): void
+    }
+
+    class TaskItemViewHolder {
+        +rootView: TextView
+        +bind(item: Task): void
+        +inflateFrom(parent: ViewGroup): TaskItemViewHolder
+    }
+
+    TaskItemAdapter --> TaskItemViewHolder : "Создает"
+    TaskItemViewHolder --> Task : "Использует"
 }
 
 package "tasks.viewmodel" {
@@ -51,12 +65,10 @@ package "tasks.viewmodel" {
         -formatTask(task: Task): String
     }
 
-
     class TasksViewModelFactory {
         TasksViewModelFactory : <<ViewModelProvider.Factory>>
         +create(modelClass: Class<T>): T
     }
-
 }
 
 ' Связи между компонентами
@@ -68,5 +80,6 @@ TasksViewModel --> TaskDao : "Использует"
 TasksViewModel --> Task : "Использует"
 TasksFragment --> TaskDatabase : "Доступ к taskDao"
 MainActivity --> TasksFragment : "Навигация"
-}
+TasksFragment --> TaskItemAdapter : "Использует для отображения задач"
+TaskItemAdapter --> Task : "Использует в data"
 @enduml
