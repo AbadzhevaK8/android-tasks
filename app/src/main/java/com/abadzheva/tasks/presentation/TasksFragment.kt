@@ -36,6 +36,9 @@ class TasksFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        val adapter = TaskItemAdapter()
+        binding.tasksList.adapter = adapter
+
         return view
     }
 
