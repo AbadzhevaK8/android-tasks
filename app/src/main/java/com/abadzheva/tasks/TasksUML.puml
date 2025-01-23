@@ -52,17 +52,15 @@ package "tasks.presentation" {
 
     TaskItemAdapter --> TaskItemViewHolder : "Создает"
     TaskItemViewHolder --> Task : "Использует"
+    TasksFragment --> TaskItemAdapter : "Использует для отображения задач"
 }
 
 package "tasks.viewmodel" {
     class TasksViewModel {
         TasksViewModel : <<ViewModel>>
         +newTaskName: String
-        -tasks: LiveData<List<Task>>
-        +tasksString: LiveData<String>
+        +tasks: LiveData<List<Task>>
         +addTask(): void
-        -formatTasks(tasks: List<Task>): String
-        -formatTask(task: Task): String
     }
 
     class TasksViewModelFactory {
