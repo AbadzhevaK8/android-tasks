@@ -2,7 +2,9 @@ package com.abadzheva.tasks.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.abadzheva.tasks.R
@@ -32,10 +34,14 @@ class TaskItemAdapter : Adapter<TaskItemViewHolder>() {
     }
 
     class TaskItemViewHolder(
-        val rootView: TextView,
+        rootView: CardView,
     ) : RecyclerView.ViewHolder(rootView) {
+        val taskName = rootView.findViewById<TextView>(R.id.task_name)
+        val taskDone = rootView.findViewById<CheckBox>(R.id.task_done)
+
         fun bind(item: Task) {
-            rootView.text = item.taskName
+            taskName.text = item.taskName
+            taskDone.isChecked = item.taskDone
         }
 
         companion object {
@@ -43,7 +49,7 @@ class TaskItemAdapter : Adapter<TaskItemViewHolder>() {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view =
                     layoutInflater
-                        .inflate(R.layout.task_item, parent, false) as TextView
+                        .inflate(R.layout.task_item, parent, false) as CardView
                 return TaskItemViewHolder(view)
             }
         }

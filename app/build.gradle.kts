@@ -68,4 +68,5 @@ dependencies {
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
 }
