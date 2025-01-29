@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.abadzheva.tasks.R
 import com.abadzheva.tasks.model.Task
 import com.abadzheva.tasks.presentation.TaskItemAdapter.TaskItemViewHolder
 
-class TaskItemAdapter : Adapter<TaskItemViewHolder>() {
+class TaskItemAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffItemCallback()) {
     var data = listOf<Task>()
         set(value) {
             field = value
@@ -47,9 +47,7 @@ class TaskItemAdapter : Adapter<TaskItemViewHolder>() {
         companion object {
             fun inflateFrom(parent: ViewGroup): TaskItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view =
-                    layoutInflater
-                        .inflate(R.layout.task_item, parent, false) as CardView
+                val view = layoutInflater.inflate(R.layout.task_item, parent, false) as CardView
                 return TaskItemViewHolder(view)
             }
         }
