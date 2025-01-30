@@ -12,13 +12,6 @@ import com.abadzheva.tasks.model.Task
 import com.abadzheva.tasks.presentation.TaskItemAdapter.TaskItemViewHolder
 
 class TaskItemAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffItemCallback()) {
-    var data = listOf<Task>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun getItemCount() = data.size
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,7 +22,7 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffItemCallba
         holder: TaskItemViewHolder,
         position: Int,
     ) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 
