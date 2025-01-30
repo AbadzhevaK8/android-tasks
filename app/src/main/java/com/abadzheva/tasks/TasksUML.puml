@@ -38,20 +38,29 @@ package "tasks.presentation" {
     }
 
     class TaskItemAdapter {
-        +data: List<Task>
+        TaskItemAdapter : <<ListAdapter<Task, TaskItemViewHolder>>>
         +getItemCount(): Int
         +onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder
         +onBindViewHolder(holder: TaskItemViewHolder, position: Int): void
+        +submitList(list: List<Task>): void
     }
 
     class TaskItemViewHolder {
-        +rootView: TextView
+        +taskName: TextView
+        +taskDone: CheckBox
         +bind(item: Task): void
         +inflateFrom(parent: ViewGroup): TaskItemViewHolder
     }
 
+    class TaskDiffItemCallback {
+        TaskDiffItemCallback : <<DiffUtil.ItemCallback<Task>>>
+        +areItemsTheSame(oldItem: Task, newItem: Task): Boolean
+        +areContentsTheSame(oldItem: Task, newItem: Task): Boolean
+    }
+
     TaskItemAdapter --> TaskItemViewHolder : "Создает"
     TaskItemViewHolder --> Task : "Использует"
+    TaskItemAdapter --> TaskDiffItemCallback : "Использует"
     TasksFragment --> TaskItemAdapter : "Использует для отображения задач"
 }
 
