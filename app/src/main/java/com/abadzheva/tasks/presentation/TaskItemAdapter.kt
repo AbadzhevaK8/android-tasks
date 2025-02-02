@@ -8,7 +8,8 @@ import com.abadzheva.tasks.databinding.TaskItemBinding
 import com.abadzheva.tasks.model.Task
 import com.abadzheva.tasks.presentation.TaskItemAdapter.TaskItemViewHolder
 
-class TaskItemAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffItemCallback()) {
+class TaskItemAdapter(val clickListener: (taskId: Long) -> Unit) :
+    ListAdapter<Task, TaskItemViewHolder>(TaskDiffItemCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -20,15 +21,16 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffItemCallba
         position: Int,
     ) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     class TaskItemViewHolder(
         val binding: TaskItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Task) {
+        fun bind(item: Task, clickListener: (taskId:Long) -> Unit) {
             binding.task = item
+            binding.root.setOnClickListener { clickListener(item.taskId) }
         }
 
         companion object {
