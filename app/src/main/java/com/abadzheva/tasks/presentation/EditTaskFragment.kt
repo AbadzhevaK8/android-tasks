@@ -15,6 +15,7 @@ import com.abadzheva.tasks.viewmodel.EditTaskViewModel
 import com.abadzheva.tasks.viewmodel.EditTaskViewModelFactory
 
 class EditTaskFragment : Fragment() {
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentEditTaskBinding? = null
     private val binding get() = _binding!!
 
@@ -32,8 +33,7 @@ class EditTaskFragment : Fragment() {
 
         val viewModelFactory = EditTaskViewModelFactory(taskId, dao)
         val viewModel =
-            ViewModelProvider(this, viewModelFactory)
-                .get(EditTaskViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory)[EditTaskViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         viewModel.navigateToList.observe(
